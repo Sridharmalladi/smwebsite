@@ -9,18 +9,30 @@
     --gradient: linear-gradient(135deg, #5FD3D0 0%, #4AB8B5 100%);
     --glass: rgba(255, 255, 255, 0.1);
     --glass-border: rgba(255, 255, 255, 0.05);
-    --spot-color: rgba(95, 211, 208, 0.15);
+    --spot-color: rgba(95, 211, 208, 0.12);
 }
 
 @keyframes float {
-    0% {
-        transform: translate(0, 0);
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(50px, -30px) scale(1.1);
     }
     50% {
-        transform: translate(100px, 50px);
+        transform: translate(100px, 50px) scale(0.9);
     }
-    100% {
-        transform: translate(0, 0);
+    75% {
+        transform: translate(-30px, 80px) scale(1.2);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.6;
     }
 }
 
@@ -39,28 +51,59 @@ body {
     overflow-x: hidden;
 }
 
-body::before,
-body::after {
-    content: '';
+/* Paint spots */
+.paint-spot {
     position: fixed;
-    width: 300px;
-    height: 300px;
     border-radius: 50%;
     background: var(--spot-color);
     filter: blur(80px);
     z-index: -1;
+    opacity: 0.3;
+    mix-blend-mode: multiply;
+}
+
+body::before,
+body::after,
+main::before,
+main::after {
+    content: '';
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: var(--spot-color);
+    filter: blur(100px);
+    z-index: -1;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
 }
 
 body::before {
     top: -100px;
     left: -100px;
-    animation: float 15s infinite ease-in-out;
+    animation: float 20s infinite ease-in-out, pulse 8s infinite ease-in-out;
 }
 
 body::after {
-    bottom: -100px;
+    bottom: -150px;
     right: -100px;
-    animation: float 20s infinite ease-in-out reverse;
+    width: 500px;
+    height: 500px;
+    animation: float 25s infinite ease-in-out reverse, pulse 10s infinite ease-in-out;
+}
+
+main::before {
+    top: 30%;
+    left: -200px;
+    animation: float 22s infinite ease-in-out, pulse 9s infinite ease-in-out;
+}
+
+main::after {
+    bottom: 20%;
+    right: -150px;
+    width: 450px;
+    height: 450px;
+    animation: float 28s infinite ease-in-out reverse, pulse 11s infinite ease-in-out;
 }
 
 nav {
@@ -93,25 +136,11 @@ main {
     position: relative;
 }
 
-main::before {
-    content: '';
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    background: var(--spot-color);
-    filter: blur(100px);
-    top: 30%;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: float 25s infinite ease-in-out;
-    z-index: -1;
-}
-
 section {
     padding: 4rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
 }
 
 .hero {
