@@ -40,36 +40,32 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(spot);
     };
 
-    // Create graffiti elements
-    const createGraffiti = () => {
-        const graffiti = document.createElement('div');
-        graffiti.className = 'graffiti';
-        
-        // Random size between 200px and 400px
-        const width = Math.random() * 200 + 200;
-        const height = Math.random() * 200 + 200;
-        graffiti.style.width = `${width}px`;
-        graffiti.style.height = `${height}px`;
-        
-        // Random position in darker areas
-        const footer = document.querySelector('footer');
-        const inspiration = document.querySelector('.inspiration');
-        const target = Math.random() > 0.5 ? footer : inspiration;
-        
-        graffiti.style.left = `${Math.random() * 100}%`;
-        graffiti.style.top = `${Math.random() * 100}%`;
-        
-        target.appendChild(graffiti);
+    // Create spray paint spots between sections
+    const createSprayPaint = () => {
+        const sections = document.querySelectorAll('section');
+        sections.forEach((section, index) => {
+            if (index < sections.length - 1) {
+                const spray = document.createElement('div');
+                spray.className = 'spray-paint';
+                
+                const size = Math.random() * 200 + 150;
+                spray.style.width = `${size}px`;
+                spray.style.height = `${size}px`;
+                
+                spray.style.left = `${Math.random() * 80 + 10}%`;
+                spray.style.top = `${section.offsetTop + section.offsetHeight - size/2}px`;
+                
+                document.body.appendChild(spray);
+            }
+        });
     };
 
-    // Create initial paint spots and graffiti
+    // Create initial paint spots and spray paints
     for (let i = 0; i < 6; i++) {
         createPaintSpot();
     }
     
-    for (let i = 0; i < 4; i++) {
-        createGraffiti();
-    }
+    createSprayPaint();
 
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -10,7 +10,7 @@
     --glass: rgba(255, 255, 255, 0.1);
     --glass-border: rgba(255, 255, 255, 0.05);
     --spot-color: rgba(95, 211, 208, 0.12);
-    --graffiti-color: rgba(42, 51, 66, 0.15);
+    --spray-color: rgba(42, 51, 66, 0.15);
 }
 
 @keyframes float {
@@ -37,14 +37,14 @@
     }
 }
 
-@keyframes graffiti-float {
+@keyframes spray {
     0%, 100% {
-        transform: rotate(-5deg) scale(1);
-        opacity: 0.15;
+        transform: scale(1) rotate(0deg);
+        opacity: 0.3;
     }
     50% {
-        transform: rotate(5deg) scale(1.1);
-        opacity: 0.25;
+        transform: scale(1.1) rotate(5deg);
+        opacity: 0.5;
     }
 }
 
@@ -54,22 +54,18 @@
     box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
-    width: 100%;
-    overflow-x: hidden;
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Lato', sans-serif;
     color: var(--text);
     line-height: 1.6;
     background-color: var(--background);
     position: relative;
-    font-weight: 400;
+    overflow-x: hidden;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 /* Paint spots */
@@ -83,101 +79,15 @@ body {
     mix-blend-mode: multiply;
 }
 
-/* Graffiti elements */
-.graffiti {
+/* Spray paint spots */
+.spray-paint {
     position: absolute;
-    background: var(--graffiti-color);
+    background: var(--spray-color);
     filter: blur(40px);
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     z-index: -1;
     mix-blend-mode: multiply;
-    animation: graffiti-float 10s infinite ease-in-out;
-}
-
-footer::before {
-    content: '';
-    position: absolute;
-    width: 600px;
-    height: 300px;
-    background: var(--graffiti-color);
-    filter: blur(60px);
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    bottom: 0;
-    left: -100px;
-    z-index: 0;
-    animation: graffiti-float 15s infinite ease-in-out;
-}
-
-footer::after {
-    content: '';
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    background: var(--graffiti-color);
-    filter: blur(50px);
-    border-radius: 30% 70% 50% 50% / 50% 50% 50% 50%;
-    top: 20%;
-    right: -100px;
-    z-index: 0;
-    animation: graffiti-float 12s infinite ease-in-out reverse;
-}
-
-.inspiration::after {
-    content: '';
-    position: absolute;
-    width: 500px;
-    height: 200px;
-    background: var(--graffiti-color);
-    filter: blur(45px);
-    border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
-    bottom: -50px;
-    right: -100px;
-    z-index: 0;
-    animation: graffiti-float 18s infinite ease-in-out;
-}
-
-body::before,
-body::after,
-main::before,
-main::after {
-    content: '';
-    position: fixed;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    background: var(--spot-color);
-    filter: blur(100px);
-    z-index: -1;
-    opacity: 0.4;
-    mix-blend-mode: multiply;
-}
-
-body::before {
-    top: -100px;
-    left: -100px;
-    animation: float 20s infinite ease-in-out, pulse 8s infinite ease-in-out;
-}
-
-body::after {
-    bottom: -150px;
-    right: -100px;
-    width: 500px;
-    height: 500px;
-    animation: float 25s infinite ease-in-out reverse, pulse 10s infinite ease-in-out;
-}
-
-main::before {
-    top: 30%;
-    left: -200px;
-    animation: float 22s infinite ease-in-out, pulse 9s infinite ease-in-out;
-}
-
-main::after {
-    bottom: 20%;
-    right: -150px;
-    width: 450px;
-    height: 450px;
-    animation: float 28s infinite ease-in-out reverse, pulse 11s infinite ease-in-out;
+    animation: spray 10s infinite ease-in-out;
 }
 
 nav {
@@ -208,7 +118,7 @@ nav {
 main {
     padding-top: 5rem;
     position: relative;
-    flex: 1;
+    min-height: calc(100vh - 5rem);
 }
 
 section {
@@ -216,7 +126,7 @@ section {
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    min-height: calc(100vh - 5rem);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -230,41 +140,23 @@ section {
     margin: -5rem 0 4rem;
     position: relative;
     overflow: hidden;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
 }
 
 h1 {
-    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-size: clamp(2rem, 5vw, 3rem);
     margin-bottom: 1.5rem;
     line-height: 1.2;
     color: var(--white);
     position: relative;
-    font-weight: 700;
 }
 
 .description {
     max-width: 600px;
     margin: 0 auto 3rem;
     color: var(--white);
-    font-size: clamp(1rem, 3vw, 1.25rem);
+    font-size: clamp(1rem, 2vw, 1.25rem);
     opacity: 0.9;
     position: relative;
-    font-weight: 300;
 }
 
 .store-buttons {
@@ -288,38 +180,11 @@ h1 {
     width: auto;
 }
 
-.coming-soon {
-    opacity: 0.6;
-    cursor: not-allowed;
-    position: relative;
-}
-
-.coming-soon-label {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.coming-soon:hover .coming-soon-label {
-    opacity: 1;
-}
-
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
-    width: 100%;
 }
 
 .feature-card {
@@ -345,48 +210,17 @@ h1 {
     color: var(--primary);
 }
 
-h2, h3 {
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-}
-
-h3 {
-    font-size: 1.25rem;
-}
-
 .inspiration {
     background: var(--gradient);
     color: var(--white);
     border-radius: 12px;
     text-align: center;
     padding: 3rem 2rem;
+    margin: 4rem auto;
     position: relative;
     overflow: hidden;
-    margin: 4rem auto;
     width: 90%;
     max-width: 1000px;
-}
-
-.inspiration::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-}
-
-.inspiration p {
-    max-width: 600px;
-    margin: 0 auto;
-    font-size: clamp(1rem, 3vw, 1.25rem);
-    line-height: 1.6;
-    position: relative;
-    font-weight: 300;
 }
 
 .privacy {
@@ -397,7 +231,7 @@ h3 {
     border: 1px solid var(--glass-border);
     border-radius: 12px;
     padding: 3rem 2rem;
-    margin: 0 auto;
+    margin: 4rem auto;
     width: 90%;
     max-width: 1000px;
 }
@@ -472,7 +306,7 @@ footer {
         flex-direction: column;
         align-items: center;
     }
-
+    
     .inspiration,
     .privacy {
         width: 95%;
