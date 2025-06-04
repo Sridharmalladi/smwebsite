@@ -20,6 +20,10 @@ body {
     color: var(--text);
     line-height: 1.6;
     background-color: var(--background);
+    background-image: 
+        radial-gradient(circle at 100% 100%, var(--primary) 0, transparent 40%),
+        radial-gradient(circle at 0% 0%, var(--primary-dark) 0, transparent 40%);
+    background-attachment: fixed;
 }
 
 nav {
@@ -31,7 +35,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     z-index: 1000;
     backdrop-filter: blur(10px);
@@ -49,6 +53,7 @@ nav {
     height: auto;
     border-radius: 12px;
     transition: transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .logo-img:hover {
@@ -57,6 +62,7 @@ nav {
 
 main {
     padding-top: 4rem;
+    position: relative;
 }
 
 section {
@@ -64,16 +70,18 @@ section {
     text-align: center;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
 }
 
 .hero {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 24px;
     margin: 4rem auto;
     padding: 4rem 2rem;
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    max-width: 1000px;
-    position: relative;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 h1 {
@@ -83,6 +91,20 @@ h1 {
     background: var(--gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    position: relative;
+    display: inline-block;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--gradient);
+    border-radius: 3px;
 }
 
 .description {
@@ -90,6 +112,7 @@ h1 {
     margin: 0 auto 3rem;
     font-size: 1.125rem;
     color: var(--text-light);
+    line-height: 1.8;
 }
 
 .store-buttons {
@@ -98,6 +121,9 @@ h1 {
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 3rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 16px;
 }
 
 .store-button {
@@ -147,20 +173,41 @@ h1 {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2.5rem;
     margin-top: 4rem;
+    position: relative;
 }
 
 .feature-card {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.95);
     padding: 2.5rem;
     border-radius: 16px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
     transition: all 0.3s ease;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.feature-card:hover::before {
+    opacity: 1;
 }
 
 .icon {
@@ -169,12 +216,28 @@ h1 {
     background: var(--gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 1;
 }
 
 h2 {
     font-size: 2.25rem;
     margin-bottom: 2.5rem;
     color: var(--text);
+    position: relative;
+    display: inline-block;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: var(--gradient);
+    border-radius: 3px;
 }
 
 h3 {
@@ -184,11 +247,14 @@ h3 {
 }
 
 .privacy {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 24px;
     margin: 4rem auto;
     padding: 4rem 2rem;
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .inspiration {
@@ -197,10 +263,32 @@ h3 {
     border-radius: 24px;
     margin: 4rem auto;
     padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.inspiration::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.1) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.1) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    opacity: 0.3;
 }
 
 .inspiration h2 {
     color: var(--white);
+}
+
+.inspiration h2::after {
+    background: var(--white);
 }
 
 .inspiration p {
@@ -208,12 +296,27 @@ h3 {
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.8;
+    position: relative;
+    z-index: 1;
 }
 
 footer {
     background: var(--secondary);
     color: var(--white);
     padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(95,211,208,0.1) 0%, rgba(74,184,181,0.1) 100%);
+    opacity: 0.1;
 }
 
 .footer-content {
@@ -221,6 +324,7 @@ footer {
     justify-content: center;
     align-items: center;
     margin-bottom: 3rem;
+    position: relative;
 }
 
 .social-link {
@@ -234,18 +338,37 @@ footer {
     padding: 0.75rem 1.5rem;
     background: rgba(255,255,255,0.1);
     border-radius: 999px;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .social-link:hover {
     opacity: 1;
-    background: rgba(255,255,255,0.2);
     transform: translateY(-2px);
+}
+
+.social-link:hover::before {
+    opacity: 0.2;
 }
 
 .social-icon {
     width: 24px;
     height: 24px;
     filter: brightness(0) invert(1);
+    position: relative;
+    z-index: 1;
 }
 
 .footer-bottom {
@@ -253,6 +376,7 @@ footer {
     padding-top: 2rem;
     border-top: 1px solid rgba(255,255,255,0.1);
     opacity: 0.8;
+    position: relative;
 }
 
 @media (max-width: 768px) {
