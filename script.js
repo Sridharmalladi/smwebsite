@@ -3,12 +3,13 @@ import Lenis from '@studio-freight/lenis';
 document.addEventListener('DOMContentLoaded', () => {
     // Smooth scroll behavior for the entire page
     const lenis = new Lenis({
-        duration: 1.2,
+        duration: 1.8,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: 'vertical',
         smooth: true,
-        smoothTouch: false,
-        touchMultiplier: 2
+        smoothTouch: true,
+        touchMultiplier: 1.5,
+        wheelMultiplier: 1.2
     });
 
     function raf(time) {
@@ -78,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (target) {
                 lenis.scrollTo(target, {
                     offset: 0,
-                    duration: 1.2,
+                    duration: 1.8,
                     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
                 });
             }

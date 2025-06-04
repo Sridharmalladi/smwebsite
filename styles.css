@@ -54,14 +54,22 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     color: var(--text);
     line-height: 1.6;
     background-color: var(--background);
     position: relative;
-    overflow-x: hidden;
     font-weight: 400;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Paint spots */
@@ -200,6 +208,7 @@ nav {
 main {
     padding-top: 5rem;
     position: relative;
+    flex: 1;
 }
 
 section {
@@ -207,6 +216,10 @@ section {
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
+    min-height: calc(100vh - 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .hero {
@@ -217,6 +230,10 @@ section {
     margin: -5rem 0 4rem;
     position: relative;
     overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .hero::before {
@@ -232,7 +249,7 @@ section {
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 5vw, 2.5rem);
     margin-bottom: 1.5rem;
     line-height: 1.2;
     color: var(--white);
@@ -244,7 +261,7 @@ h1 {
     max-width: 600px;
     margin: 0 auto 3rem;
     color: var(--white);
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 3vw, 1.25rem);
     opacity: 0.9;
     position: relative;
     font-weight: 300;
@@ -302,6 +319,7 @@ h1 {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+    width: 100%;
 }
 
 .feature-card {
@@ -345,6 +363,9 @@ h3 {
     padding: 3rem 2rem;
     position: relative;
     overflow: hidden;
+    margin: 4rem auto;
+    width: 90%;
+    max-width: 1000px;
 }
 
 .inspiration::before {
@@ -362,7 +383,7 @@ h3 {
 .inspiration p {
     max-width: 600px;
     margin: 0 auto;
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 3vw, 1.25rem);
     line-height: 1.6;
     position: relative;
     font-weight: 300;
@@ -376,6 +397,9 @@ h3 {
     border: 1px solid var(--glass-border);
     border-radius: 12px;
     padding: 3rem 2rem;
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1000px;
 }
 
 footer {
@@ -431,16 +455,13 @@ footer {
 }
 
 @media (max-width: 768px) {
-    h1 {
-        font-size: 2rem;
-    }
-    
-    .description {
-        font-size: 1rem;
-    }
-    
     section {
         padding: 3rem 1.5rem;
+        min-height: auto;
+    }
+    
+    .hero {
+        padding: 8rem 1.5rem 4rem;
     }
     
     .feature-grid {
@@ -450,5 +471,11 @@ footer {
     .store-buttons {
         flex-direction: column;
         align-items: center;
+    }
+
+    .inspiration,
+    .privacy {
+        width: 95%;
+        margin: 2rem auto;
     }
 }
