@@ -39,9 +39,35 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(spot);
     };
 
-    // Create initial paint spots
+    // Create graffiti elements
+    const createGraffiti = () => {
+        const graffiti = document.createElement('div');
+        graffiti.className = 'graffiti';
+        
+        // Random size between 200px and 400px
+        const width = Math.random() * 200 + 200;
+        const height = Math.random() * 200 + 200;
+        graffiti.style.width = `${width}px`;
+        graffiti.style.height = `${height}px`;
+        
+        // Random position in darker areas
+        const footer = document.querySelector('footer');
+        const inspiration = document.querySelector('.inspiration');
+        const target = Math.random() > 0.5 ? footer : inspiration;
+        
+        graffiti.style.left = `${Math.random() * 100}%`;
+        graffiti.style.top = `${Math.random() * 100}%`;
+        
+        target.appendChild(graffiti);
+    };
+
+    // Create initial paint spots and graffiti
     for (let i = 0; i < 6; i++) {
         createPaintSpot();
+    }
+    
+    for (let i = 0; i < 4; i++) {
+        createGraffiti();
     }
 
     // Smooth scroll for anchor links
