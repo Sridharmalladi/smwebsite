@@ -1,15 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const nav = document.querySelector('nav');
-    
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 10) {
-            nav.style.padding = '0.75rem 2rem';
-            nav.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-        } else {
-            nav.style.padding = '1rem 2rem';
-            nav.style.boxShadow = 'none';
-        }
+    // Smooth scroll behavior for the entire page
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        smooth: true,
+        smoothTouch: false,
+        touchMultiplier: 2
     });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    // Create dynamic paint spots
+    const createPaintSpot = () => {
+        const spot = document.createElement('div');
+        spot.className = 'paint-spot';
+        
+        // Random size between 300px and 600px
+        const size = Math.random() * 300 + 300;
+        spot.style.width = `${size}px`;
+        spot.style.height = `${size}px`;
+        
+        // Random position
+        spot.style.left = `${Math.random() * 100}vw`;
+        spot.style.top = `${Math.random() * 100}vh`;
+        
+        // Random animation duration between 20s and 30s
+        const duration = Math.random() * 10 + 20;
+        spot.style.animation = `float ${duration}s infinite ease-in-out ${Math.random() * 10}s, pulse ${duration/2}s infinite ease-in-out`;
+        
+        document.body.appendChild(spot);
+    };
+
+    // Create initial paint spots
+    for (let i = 0; i < 6; i++) {
+        createPaintSpot();
+    }
 
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -17,8 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
+                lenis.scrollTo(target, {
+                    offset: 0,
+                    duration: 1.2,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
                 });
             }
         });
