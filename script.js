@@ -1,3 +1,5 @@
+import Lenis from '@studio-freight/lenis';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Smooth scroll behavior for the entire page
     const lenis = new Lenis({
