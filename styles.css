@@ -9,6 +9,19 @@
     --gradient: linear-gradient(135deg, #5FD3D0 0%, #4AB8B5 100%);
     --glass: rgba(255, 255, 255, 0.1);
     --glass-border: rgba(255, 255, 255, 0.05);
+    --spot-color: rgba(95, 211, 208, 0.15);
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(100px, 50px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
 }
 
 * {
@@ -22,6 +35,32 @@ body {
     color: var(--text);
     line-height: 1.6;
     background-color: var(--background);
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: var(--spot-color);
+    filter: blur(80px);
+    z-index: -1;
+}
+
+body::before {
+    top: -100px;
+    left: -100px;
+    animation: float 15s infinite ease-in-out;
+}
+
+body::after {
+    bottom: -100px;
+    right: -100px;
+    animation: float 20s infinite ease-in-out reverse;
 }
 
 nav {
@@ -51,6 +90,22 @@ nav {
 
 main {
     padding-top: 5rem;
+    position: relative;
+}
+
+main::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: var(--spot-color);
+    filter: blur(100px);
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: float 25s infinite ease-in-out;
+    z-index: -1;
 }
 
 section {
